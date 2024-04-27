@@ -45,4 +45,15 @@ public class ParticipantService {
         transaction.commit();
     }
 
+    public Collection<Participant> getAll(String sortBy, String sortOrder, String login) {
+        String hql = "FROM Participant WHERE login LIKE :loginValue";
+        if (sortBy.equals("login")) {
+            hql += " ORDER BY " + sortBy;
+            if (sortOrder.equals("ASC") || sortOrder.equals("DESC"))
+                hql += " " + sortOrder;
+        }
+        Query query = connector.getSession().createQuery(hql);
+        query.setParameter("loginValue", "%" + login + "%");
+        return query.list();
+    }
 }

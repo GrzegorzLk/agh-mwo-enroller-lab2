@@ -22,4 +22,9 @@ public class MeetingService {
 		return query.list();
 	}
 
+	public Meeting findById(long id)  {
+		System.out.println("Meeting findById " + id);
+		return session.get(Meeting.class, id);
+		//return connector.getSession().get(Meeting.class, title);
+	}
 }

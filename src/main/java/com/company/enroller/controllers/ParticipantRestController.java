@@ -17,9 +17,18 @@ public class ParticipantRestController {
 	@Autowired
 	ParticipantService participantService;
 
+//	@RequestMapping(value = "", method = RequestMethod.GET)
+//	public ResponseEntity<?> getParticipants() {
+//		Collection<Participant> participants = participantService.getAll();
+//		return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
+//	}
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ResponseEntity<?> getParticipants() {
-		Collection<Participant> participants = participantService.getAll();
+	public ResponseEntity<?> getParticipants(@RequestParam(value = "sortBy", defaultValue = "login") String sortBy,
+											 @RequestParam(value = "sortOrder", defaultValue = "ASC") String sortOrder,
+											 @RequestParam(value = "key", defaultValue = "") String login)	 {
+		System.out.println("sortByParam: " + sortBy + " sortOrderParam: " + sortOrder + " " + "key: " + login);
+		Collection<Participant> participants = participantService.getAll(sortBy, sortOrder, login);
 		return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
 	}
 
